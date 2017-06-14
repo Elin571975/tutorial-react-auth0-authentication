@@ -16,9 +16,9 @@ const authCheck = jwt({
     cache: true,
     rateLimit: true,
     jwksRequestsPerMinute: 5,
-    jwksUri: 'https://{jae-huh.au.auth0.com}/.well-known/jwks.json'
+    jwksUri: 'https://jae-huh.au.auth0.com/.well-known/jwks.json'
   }),
-  audience: 'https://jae-huh.au.auth0.com/api/v2/',
+  audience: 'http://chucknorrisworld.com',
   issuer: 'jae-huh.au.auth0.com',
   algorithems: ['RS256']
 })
@@ -53,7 +53,7 @@ app.get('/api/jokes/food', (req, res) => {
   res.json(foodJokes)
 })
 
-app.get('/api/jokes/celebrity', (req,res) => {
+app.get('/api/jokes/celebrity', authCheck, (req,res) => {
   let CelebrityJokes = [
     {
       id: 88881,
